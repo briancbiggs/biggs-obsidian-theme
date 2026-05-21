@@ -37,37 +37,37 @@ settings:
     title: H1 accent
     type: variable-color
     format: hex
-    default: '#e73e3e'
+    default: '#e85d5d'
   -
     id: h2-accent-color
     title: H2 accent
     type: variable-color
     format: hex
-    default: '#e73edf'
+    default: '#d96bd8'
   -
     id: h3-accent-color
     title: H3 accent
     type: variable-color
     format: hex
-    default: '#3e5de7'
+    default: '#6f83e8'
   -
     id: h4-accent-color
     title: H4 accent
     type: variable-color
     format: hex
-    default: '#3ee1e7'
+    default: '#45b9d0'
   -
     id: h5-accent-color
     title: H5 accent
     type: variable-color
     format: hex
-    default: '#3ee77f'
+    default: '#55c982'
   -
     id: h6-accent-color
     title: H6 accent
     type: variable-color
     format: hex
-    default: '#e4e73e'
+    default: '#d2c85a'
 */
 
 .theme-dark {
@@ -79,12 +79,12 @@ settings:
   --secondary-accent-color: #ffd000;
   --tertiary-accent-color: #ffab3e;
 
-  --h1-accent-color: #e73e3e;
-  --h2-accent-color: #e73edf;
-  --h3-accent-color: #3e5de7;
-  --h4-accent-color: #3ee1e7;
-  --h5-accent-color: #3ee77f;
-  --h6-accent-color: #e4e73e;
+  --h1-accent-color: #e85d5d;
+  --h2-accent-color: #d96bd8;
+  --h3-accent-color: #6f83e8;
+  --h4-accent-color: #45b9d0;
+  --h5-accent-color: #55c982;
+  --h6-accent-color: #d2c85a;
 
   --list-marker-color: var(--tertiary-accent-color);
   --checkbox-border-color: var(--tertiary-accent-color);
@@ -106,12 +106,12 @@ settings:
   --secondary-accent-color: #ff950b;
   --tertiary-accent-color: #ff950b;
 
-  --h1-accent-color: #e73e3e;
-  --h2-accent-color: #e73edf;
-  --h3-accent-color: #3e5de7;
-  --h4-accent-color: #007985;
-  --h5-accent-color: #008d45;
-  --h6-accent-color: #7a7d00;
+  --h1-accent-color: #b83232;
+  --h2-accent-color: #a2359f;
+  --h3-accent-color: #3f54b5;
+  --h4-accent-color: #08798a;
+  --h5-accent-color: #16844a;
+  --h6-accent-color: #8a7a00;
 
   --list-marker-color: var(--tertiary-accent-color);
   --checkbox-border-color: var(--tertiary-accent-color);
