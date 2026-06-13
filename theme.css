@@ -134,6 +134,14 @@ settings:
 	--background-modifier-form-field: var(--background-secondary);
 }
 
+.is-mobile.theme-dark button:not(.clickable-icon),
+.is-mobile.theme-dark .workspace-drawer-active-tab-header,
+.is-mobile.theme-dark input[type="text"],
+.is-mobile.theme-dark input[type="search"],
+.is-mobile.theme-dark .search-input-container input {
+	border: 1px solid var(--background-modifier-border);
+}
+
 body {
 	--radius-s: 0px;
 	--radius-m: 0px;
