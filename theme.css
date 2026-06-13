@@ -143,6 +143,8 @@ body {
 	--font-monospace-theme: "Cascadia Code", "Source Code Pro", Consolas, monospace;
 	--text-highlight-bg: var(--secondary-accent-color);
 	--interactive-accent: var(--primary-accent-color);
+	--text-on-accent: #161616;
+	--text-on-accent-inverted: #161616;
 	--text-accent: var(--primary-accent-color);
 	--text-accent-hover: var(--tertiary-accent-color);
 	--background-modifier-border: var(--primary-line-color);
@@ -217,7 +219,7 @@ code {
 	background-color: var(--code-background);
 	color: var(--code-normal);
 	font-family: var(--font-monospace-theme);
-	padding: .1em .35em !important;
+	padding: .1em .35em;
 }
 
 .HyperMD-codeblock,
@@ -236,7 +238,7 @@ pre {
 
 pre code {
 	border: 0;
-	padding: 0 !important;
+	padding: 0;
 }
 
 .cm-formatting-list {
@@ -249,6 +251,7 @@ a,
 .internal-link,
 .external-link {
 	color: var(--text-accent);
+	text-decoration-line: underline;
 	text-decoration-thickness: 2px;
 	text-underline-offset: .18em;
 }
@@ -338,5 +341,9 @@ svg * {
 
 	.inline-title {
 		font-size: 2.2em !important;
+	}
+
+	.HyperMD-header, h1, h2, h3, h4, h5, h6 {
+		margin-bottom: 1.5rem;
 	}
 }
