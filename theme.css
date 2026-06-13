@@ -129,6 +129,11 @@ settings:
   --h6-size: 1.4em;
 }
 
+.is-mobile.theme-dark {
+	--interactive-normal: var(--background-secondary);
+	--background-modifier-form-field: var(--background-secondary);
+}
+
 body {
 	--radius-s: 0px;
 	--radius-m: 0px;

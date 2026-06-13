@@ -2268,6 +2268,7 @@ body {
   --h4-weight: 600;
   --h5-weight: 600;
   --h6-weight: 600;
+  --h1-margin: 
   /* View header */
   --header-height: 40px;
   /* Horizontal rules */
@@ -2477,7 +2478,7 @@ body {
   --pill-radius: 2em;
   --pill-weight: inherit;
   /* Paragraphs */
-  --p-spacing: 1rem;
+  --p-spacing: 1.5rem;
   --p-spacing-empty: 0rem;
   /* PDF view */
   --pdf-background: var(--background-primary);
