@@ -37,60 +37,63 @@ settings:
     title: H1 accent
     type: variable-color
     format: hex
-    default: '#e85d5d'
+    default: '#82d0ef'
   -
     id: h2-accent-color
     title: H2 accent
     type: variable-color
     format: hex
-    default: '#d96bd8'
+    default: '#5bc2eb'
   -
     id: h3-accent-color
     title: H3 accent
     type: variable-color
     format: hex
-    default: '#6f83e8'
+    default: '#3eb7e7'
   -
     id: h4-accent-color
     title: H4 accent
     type: variable-color
     format: hex
-    default: '#45b9d0'
+    default: '#359cc4'
   -
     id: h5-accent-color
     title: H5 accent
     type: variable-color
     format: hex
-    default: '#55c982'
+    default: '#2b80a2'
   -
     id: h6-accent-color
     title: H6 accent
     type: variable-color
     format: hex
-    default: '#d2c85a'
+    default: '#22657f'
 */
 
 .theme-dark {
   --background-primary: #161616;
   --background-secondary: #111111;
+  --text-normal: #d4d4d4;
 
   --primary-accent-color: #3eb7e7;
-  --primary-line-color: #22586d;
+  --primary-line-color: var(--h2-accent-color);
   --secondary-accent-color: #ffd000;
   --tertiary-accent-color: #ffab3e;
 
-  --h1-accent-color: #e85d5d;
-  --h2-accent-color: #d96bd8;
-  --h3-accent-color: #6f83e8;
-  --h4-accent-color: #45b9d0;
-  --h5-accent-color: #55c982;
-  --h6-accent-color: #d2c85a;
+  --h1-accent-color: #82d0ef;
+  --h2-accent-color: #5bc2eb;
+  --h3-accent-color: #3eb7e7;
+  --h4-accent-color: #359cc4;
+  --h5-accent-color: #2b80a2;
+  --h6-accent-color: #22657f;
 
   --list-marker-color: var(--tertiary-accent-color);
   --checkbox-border-color: var(--tertiary-accent-color);
 
-  --h1-size: 3em;
-  --h2-size: 2.6em;
+  --text-highlight-fg: #161616;
+
+  --h1-size: 2.5em;
+  --h2-size: 2.25em;
   --h3-size: 2.2em;
   --h4-size: 1.8em;
   --h5-size: 1.6em;
@@ -102,22 +105,24 @@ settings:
   --background-secondary: #e1f3fc;
 
   --primary-accent-color: #3eb7e7;
-  --primary-line-color: #8fcfe6;
+  --primary-line-color: var(--h2-accent-color);
   --secondary-accent-color: #ff950b;
   --tertiary-accent-color: #ff950b;
 
-  --h1-accent-color: #b83232;
-  --h2-accent-color: #a2359f;
-  --h3-accent-color: #3f54b5;
-  --h4-accent-color: #08798a;
-  --h5-accent-color: #16844a;
-  --h6-accent-color: #8a7a00;
+  --h1-accent-color: #22657f;
+  --h2-accent-color: #287594;
+  --h3-accent-color: #2d86a9;
+  --h4-accent-color: #3396bd;
+  --h5-accent-color: #38a7d2;
+  --h6-accent-color: #3eb7e7;
 
   --list-marker-color: var(--tertiary-accent-color);
   --checkbox-border-color: var(--tertiary-accent-color);
 
-  --h1-size: 3em;
-  --h2-size: 2.6em;
+  --text-highlight-fg: #161616;
+
+  --h1-size: 2.5em;
+  --h2-size: 2.25em;
   --h3-size: 2.2em;
   --h4-size: 1.8em;
   --h5-size: 1.6em;
@@ -162,32 +167,27 @@ body {
 	stroke: currentColor;
 }
 
-.HyperMD-header .cm-fold-indicator {
-	border-left: 20px var(--primary-line-color) solid;
-	border-radius: 20px 0 0 20px;
-}
-
-.HyperMD-header-1 .cm-fold-indicator, h1 {
+.HyperMD-header-1, h1 {
 	border-color: var(--h1-accent-color) !important;
 }
 
-.HyperMD-header-2 .cm-fold-indicator, h2 {
+.HyperMD-header-2, h2 {
 	border-color: var(--h2-accent-color);
 }
 
-.HyperMD-header-3 .cm-fold-indicator, h3 {
+.HyperMD-header-3, h3 {
 	border-color: var(--h3-accent-color);
 }
 
-.HyperMD-header-4 .cm-fold-indicator, h4 {
+.HyperMD-header-4, h4 {
 	border-color: var(--h4-accent-color);
 }
 
-.HyperMD-header-5 .cm-fold-indicator, h5 {
+.HyperMD-header-5, h5 {
 	border-color: var(--h5-accent-color);
 }
 
-.HyperMD-header-6 .cm-fold-indicator, h6 {
+.HyperMD-header-6, h6 {
 	border-color: var(--h6-accent-color);
 }
 
@@ -196,22 +196,19 @@ body {
 }
 
 
-.cm-header, h1, h2, h3, h4, h5, h6 {
-	padding-left: .4em;
+.HyperMD-header, h1, h2, h3, h4, h5, h6 {
+	border-bottom-width: .08em;
+	border-bottom-style: solid;
+	padding-bottom: .15em;
 }
 
 .cm-strong, strong {
 	font-weight: bold;
-	color: var(--tertiary-accent-color);
-}
-
-.cm-em, em {
-	color: var(--tertiary-accent-color);
 }
 
 .cm-highlight, mark {
 	background-color: var(--secondary-accent-color);
-	color: var(--background-primary) !important;
+	color: var(--text-highlight-fg) !important;
 }
 
 .cm-inline-code,
@@ -331,8 +328,8 @@ svg * {
 
 @media (max-width: 600px) {
 	body {
-		--h1-size: 2.2em;
-		--h2-size: 1.9em;
+		--h1-size: 1.85em;
+		--h2-size: 1.7em;
 		--h3-size: 1.65em;
 		--h4-size: 1.45em;
 		--h5-size: 1.25em;
@@ -341,9 +338,5 @@ svg * {
 
 	.inline-title {
 		font-size: 2.2em !important;
-	}
-
-	.HyperMD-header .cm-fold-indicator {
-		border-left-width: 12px;
 	}
 }
