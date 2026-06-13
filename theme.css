@@ -348,7 +348,9 @@ svg * {
 		font-size: 2.2em !important;
 	}
 
-	.HyperMD-header, h1, h2, h3, h4, h5, h6 {
-		margin-bottom: 1.5rem;
+	.HyperMD-header,
+	.markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
+	.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 {
+		margin-block-end: 1.5rem;
 	}
 }
