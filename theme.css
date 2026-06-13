@@ -353,4 +353,8 @@ svg * {
 	.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 {
 		margin-block-end: 1.5rem;
 	}
+
+	.cm-s-obsidian .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):not(:has(>br:only-child)) {
+		padding-top: 1.5rem;
+	}
 }
