@@ -290,10 +290,10 @@ blockquote {
 }
 
 .callout {
-	border: 1px solid rgb(var(--callout-color));
+	border: 1px solid var(--callout-color);
 	border-left-width: 8px;
 	border-radius: 0;
-	background-color: color-mix(in srgb, rgb(var(--callout-color)) 10%, var(--background-primary));
+	background-color: color-mix(in srgb, var(--callout-color) 10%, var(--background-primary));
 }
 
 .callout-title {
