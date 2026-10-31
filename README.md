@@ -42,3 +42,7 @@ Theme styles live in `theme.css`, organized into numbered sections listed at the
 Values that Obsidian declares on `.theme-dark` and `.theme-light` must be overridden on those same selectors, because a rule on `body` loses to them.
 
 The release metadata lives in `manifest.json` and `versions.json`.
+
+## Support
+
+If you enjoy Biggs, you can [buy me a coffee](https://buymeacoffee.com/briancbiggs).
