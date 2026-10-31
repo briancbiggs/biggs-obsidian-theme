@@ -11,358 +11,1263 @@ settings:
   -
     id: primary-accent-color
     title: Primary accent
-    type: variable-color
+    description: Links, active states, and focus. Overrides the accent color in Obsidian's Appearance settings.
+    type: variable-themed-color
     format: hex
-    default: '#3eb7e7'
+    opacity: false
+    default-light: '#0a739e'
+    default-dark: '#3eb7e7'
   -
     id: secondary-accent-color
-    title: Secondary accent
-    type: variable-color
+    title: Highlight
+    description: The marker color behind highlighted text and search matches.
+    type: variable-themed-color
     format: hex
-    default: '#ffd000'
+    opacity: false
+    default-light: '#ffcf33'
+    default-dark: '#ffd000'
   -
     id: tertiary-accent-color
-    title: Tertiary accent
-    type: variable-color
+    title: Secondary accent
+    description: Tags, inline code, list markers, and checkboxes.
+    type: variable-themed-color
     format: hex
-    default: '#ffab3e'
+    opacity: false
+    default-light: '#995400'
+    default-dark: '#ffab3e'
   -
     id: biggs-headings
-    title: Heading colors
+    title: Headings
     type: heading
     level: 2
     collapsed: true
   -
+    id: biggs-heading-palette
+    title: Heading palette
+    description: Colors for the six heading levels. A color set below overrides the palette for that level.
+    type: class-select
+    allowEmpty: false
+    default: biggs-palette-amber
+    options:
+      -
+        label: Cyan to amber
+        value: biggs-palette-amber
+      -
+        label: Cyan to violet
+        value: biggs-palette-cool
+      -
+        label: Blue
+        value: biggs-palette-blue
+  -
+    id: biggs-heading-rules
+    title: Heading rules
+    description: Which heading levels carry a rule underneath.
+    type: class-select
+    allowEmpty: false
+    default: biggs-rules-top
+    options:
+      -
+        label: Levels 1 to 3
+        value: biggs-rules-top
+      -
+        label: All levels
+        value: biggs-rules-all
+      -
+        label: None
+        value: biggs-rules-none
+  -
+    id: biggs-neutral-headings
+    title: Neutral heading text
+    description: Keep the heading colors on the rules only.
+    type: class-toggle
+    default: false
+  -
+    id: biggs-solid-rules
+    title: Solid heading rules
+    description: Run heading rules at full strength across the line instead of fading them to the right.
+    type: class-toggle
+    default: false
+  -
     id: h1-accent-color
-    title: H1 accent
-    type: variable-color
+    title: H1 color
+    type: variable-themed-color
     format: hex
-    default: '#82d0ef'
+    opacity: false
+    default-light: '#145e7b'
+    default-dark: '#8bcbe4'
   -
     id: h2-accent-color
-    title: H2 accent
-    type: variable-color
+    title: H2 color
+    type: variable-themed-color
     format: hex
-    default: '#5bc2eb'
+    opacity: false
+    default-light: '#196b60'
+    default-dark: '#75c7bc'
   -
     id: h3-accent-color
-    title: H3 accent
-    type: variable-color
+    title: H3 color
+    type: variable-themed-color
     format: hex
-    default: '#3eb7e7'
+    opacity: false
+    default-light: '#29653d'
+    default-dark: '#7fbd94'
   -
     id: h4-accent-color
-    title: H4 accent
-    type: variable-color
+    title: H4 color
+    type: variable-themed-color
     format: hex
-    default: '#359cc4'
+    opacity: false
+    default-light: '#435f1c'
+    default-dark: '#9eba78'
   -
     id: h5-accent-color
-    title: H5 accent
-    type: variable-color
+    title: H5 color
+    type: variable-themed-color
     format: hex
-    default: '#2b80a2'
+    opacity: false
+    default-light: '#705c10'
+    default-dark: '#cab668'
   -
     id: h6-accent-color
-    title: H6 accent
-    type: variable-color
+    title: H6 color
+    type: variable-themed-color
     format: hex
-    default: '#22657f'
+    opacity: false
+    default-light: '#7f490a'
+    default-dark: '#dca76a'
+  -
+    id: biggs-typography
+    title: Typography
+    type: heading
+    level: 2
+    collapsed: true
+  -
+    id: biggs-text-font
+    title: Body typeface
+    description: A font chosen in Obsidian's Appearance settings takes priority over this.
+    type: class-select
+    allowEmpty: false
+    default: biggs-text-serif
+    options:
+      -
+        label: Serif
+        value: biggs-text-serif
+      -
+        label: Sans serif
+        value: biggs-text-sans
+  -
+    id: biggs-text-scale
+    title: Text size
+    description: Scales Obsidian's font size setting for notes. Desktop only, since phones follow the system text size.
+    type: variable-number-slider
+    default: 1.0625
+    min: 1
+    max: 1.25
+    step: 0.0125
+  -
+    id: line-height-normal
+    title: Line height
+    type: variable-number-slider
+    default: 1.65
+    min: 1.3
+    max: 2
+    step: 0.05
+  -
+    id: file-line-width
+    title: Line width
+    description: Applies when Readable line length is on.
+    type: variable-number-slider
+    default: 600
+    min: 520
+    max: 1100
+    step: 20
+    format: px
+  -
+    id: biggs-interface
+    title: Interface
+    type: heading
+    level: 2
+    collapsed: true
+  -
+    id: biggs-soft-corners
+    title: Soft corners
+    description: Round corners slightly instead of keeping them square.
+    type: class-toggle
+    default: false
+  -
+    id: biggs-no-active-line
+    title: Hide active line
+    description: Remove the tint behind the line being edited.
+    type: class-toggle
+    default: false
+  -
+    id: biggs-natural-tables
+    title: Natural table width
+    description: Size tables to their content instead of filling the line.
+    type: class-toggle
+    default: false
 */
 
+/* ==========================================================================
+   Biggs
+
+   A square-edged, ruled document theme. One idea runs through it: a rule
+   marks what matters. Headings stand on rules, and the active tab, active
+   list item, blockquote, and callout are each marked by one.
+
+   1.  Palette: dark
+   2.  Palette: light
+   3.  Semantic tokens
+   4.  Type, shape, and spacing tokens
+   5.  Foundations
+   6.  Headings
+   7.  Inline text
+   8.  Lists and tasks
+   9.  Quotes, callouts, and embeds
+   10. Tables
+   11. Code
+   12. Properties
+   13. Editing view
+   14. Reading view
+   15. Tabs and navigation
+   16. Controls
+   17. Menus, modals, and tooltips
+   18. Search
+   19. Mobile
+   20. Small screens
+
+   Values that Obsidian declares on .theme-dark and .theme-light have to be
+   overridden on those same selectors. A rule on body loses to them.
+   ========================================================================== */
+
+/* 1. Palette: dark. Near-black ink, with sidebars set below the page.
+   ========================================================================== */
+
 .theme-dark {
-  --background-primary: #161616;
-  --background-secondary: #111111;
-  --text-normal: #d4d4d4;
+	--accent-h: 197;
+	--accent-s: 78%;
+	--accent-l: 57.5%;
 
-  --primary-accent-color: #3eb7e7;
-  --primary-line-color: var(--h2-accent-color);
-  --secondary-accent-color: #ffd000;
-  --tertiary-accent-color: #ffab3e;
+	--color-base-00: #161719;
+	--color-base-05: #1a1b1d;
+	--color-base-10: #1d1f21;
+	--color-base-20: #222426;
+	--color-base-25: #27292c;
+	--color-base-30: #2c2e31;
+	--color-base-35: #393c40;
+	--color-base-40: #4a4d51;
+	--color-base-50: #7f8388;
+	--color-base-60: #8e9297;
+	--color-base-70: #a3a7ab;
+	--color-base-100: #d8d9d8;
 
-  --h1-accent-color: #82d0ef;
-  --h2-accent-color: #5bc2eb;
-  --h3-accent-color: #3eb7e7;
-  --h4-accent-color: #359cc4;
-  --h5-accent-color: #2b80a2;
-  --h6-accent-color: #22657f;
+	--background-secondary: #111214;
+	--background-secondary-alt: #0d0e0f;
 
-  --list-marker-color: var(--tertiary-accent-color);
-  --checkbox-border-color: var(--tertiary-accent-color);
+	--secondary-accent-color: #ffd000;
+	--tertiary-accent-color: #ffab3e;
 
-  --text-highlight-fg: #161616;
+	--biggs-h1-hue: #8bcbe4;
+	--biggs-h2-hue: #75c7bc;
+	--biggs-h3-hue: #7fbd94;
+	--biggs-h4-hue: #9eba78;
+	--biggs-h5-hue: #cab668;
+	--biggs-h6-hue: #dca76a;
 
-  --h1-size: 2.5em;
-  --h2-size: 2.25em;
-  --h3-size: 2.2em;
-  --h4-size: 1.8em;
-  --h5-size: 1.6em;
-  --h6-size: 1.4em;
+	--color-red: #ee6a6a;
+	--color-orange: #ffab3e;
+	--color-yellow: #f2cc4d;
+	--color-green: #6cc07f;
+	--color-cyan: #4fc4c0;
+	--color-blue: #5a9cf0;
+	--color-purple: #a98cf0;
+	--color-pink: #e687b8;
+	--color-red-rgb: 238, 106, 106;
+	--color-orange-rgb: 255, 171, 62;
+	--color-yellow-rgb: 242, 204, 77;
+	--color-green-rgb: 108, 192, 127;
+	--color-cyan-rgb: 79, 196, 192;
+	--color-blue-rgb: 90, 156, 240;
+	--color-purple-rgb: 169, 140, 240;
+	--color-pink-rgb: 230, 135, 184;
+
+	--text-on-accent: #111214;
+	--text-on-accent-inverted: #111214;
+	--text-highlight-bg: color-mix(in srgb, var(--secondary-accent-color) 30%, transparent);
+
+	--background-modifier-form-field: var(--color-base-05);
+	--background-modifier-cover: rgba(5, 6, 7, 0.65);
+	--interactive-normal: var(--color-base-25);
+	--interactive-hover: var(--color-base-35);
+
+	--biggs-selected: color-mix(in srgb, var(--primary-accent-color) 16%, transparent);
+	--biggs-code-background: #101113;
+	--biggs-active-line: rgba(255, 255, 255, 0.028);
+	--biggs-toggle-off: var(--color-base-40);
+
+	--code-comment: #7f868c;
+	--code-function: #ffc266;
+	--code-important: var(--tertiary-accent-color);
+	--code-keyword: #6cc4ec;
+	--code-operator: var(--text-muted);
+	--code-property: #8fcbd6;
+	--code-punctuation: var(--text-muted);
+	--code-string: #a3c98a;
+	--code-tag: #6cc4ec;
+	--code-value: #c9a3e0;
+
+	--tooltip-background: var(--color-base-30);
+	--tooltip-color: var(--text-normal);
+
+	--shadow-s: 0 2px 4px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+	--shadow-l: 0 4px 8px rgba(0, 0, 0, 0.35), 0 16px 48px rgba(0, 0, 0, 0.5);
 }
+
+/* 2. Palette: light. Cool drafting paper with darker inks; the accents are
+   redrawn for the page rather than carried over from dark mode.
+   ========================================================================== */
 
 .theme-light {
-  --background-primary: #fbffff;
-  --background-secondary: #e1f3fc;
+	--accent-h: 197;
+	--accent-s: 88%;
+	--accent-l: 33%;
 
-  --primary-accent-color: #3eb7e7;
-  --primary-line-color: var(--h2-accent-color);
-  --secondary-accent-color: #ff950b;
-  --tertiary-accent-color: #ff950b;
+	--color-base-00: #fcfdfd;
+	--color-base-05: #f7f9fa;
+	--color-base-10: #f3f6f7;
+	--color-base-20: #edf2f4;
+	--color-base-25: #e4ebee;
+	--color-base-30: #d9e1e5;
+	--color-base-35: #c6d0d6;
+	--color-base-40: #a9b5bc;
+	--color-base-50: #626c74;
+	--color-base-60: #5b666e;
+	--color-base-70: #4f5b63;
+	--color-base-100: #1d2428;
 
-  --h1-accent-color: #22657f;
-  --h2-accent-color: #287594;
-  --h3-accent-color: #2d86a9;
-  --h4-accent-color: #3396bd;
-  --h5-accent-color: #38a7d2;
-  --h6-accent-color: #3eb7e7;
+	--background-secondary: var(--color-base-20);
+	--background-secondary-alt: var(--color-base-25);
 
-  --list-marker-color: var(--tertiary-accent-color);
-  --checkbox-border-color: var(--tertiary-accent-color);
+	--secondary-accent-color: #ffcf33;
+	--tertiary-accent-color: #995400;
 
-  --text-highlight-fg: #161616;
+	--biggs-h1-hue: #145e7b;
+	--biggs-h2-hue: #196b60;
+	--biggs-h3-hue: #29653d;
+	--biggs-h4-hue: #435f1c;
+	--biggs-h5-hue: #705c10;
+	--biggs-h6-hue: #7f490a;
 
-  --h1-size: 2.5em;
-  --h2-size: 2.25em;
-  --h3-size: 2.2em;
-  --h4-size: 1.8em;
-  --h5-size: 1.6em;
-  --h6-size: 1.4em;
+	--color-red: #c93a3f;
+	--color-orange: #995400;
+	--color-yellow: #806500;
+	--color-green: #2a7f44;
+	--color-cyan: #0c7f7c;
+	--color-blue: #1f66c7;
+	--color-purple: #6b4bc4;
+	--color-pink: #b0397a;
+	--color-red-rgb: 201, 58, 63;
+	--color-orange-rgb: 153, 84, 0;
+	--color-yellow-rgb: 128, 101, 0;
+	--color-green-rgb: 42, 127, 68;
+	--color-cyan-rgb: 12, 127, 124;
+	--color-blue-rgb: 31, 102, 199;
+	--color-purple-rgb: 107, 75, 196;
+	--color-pink-rgb: 176, 57, 122;
+
+	--text-on-accent: #ffffff;
+	--text-on-accent-inverted: #ffffff;
+	--text-highlight-bg: color-mix(in srgb, var(--secondary-accent-color) 58%, transparent);
+
+	--background-modifier-form-field: #ffffff;
+	--background-modifier-cover: rgba(40, 52, 60, 0.35);
+	--interactive-normal: #ffffff;
+	--interactive-hover: var(--color-base-10);
+
+	--biggs-selected: color-mix(in srgb, var(--primary-accent-color) 13%, transparent);
+	--biggs-code-background: var(--color-base-10);
+	--biggs-active-line: rgba(10, 60, 90, 0.035);
+	--biggs-toggle-off: var(--color-base-40);
+
+	--code-comment: #626c74;
+	--code-function: #8f5200;
+	--code-important: var(--tertiary-accent-color);
+	--code-keyword: #0b6f9a;
+	--code-operator: var(--text-muted);
+	--code-property: #0e6e7a;
+	--code-punctuation: var(--text-muted);
+	--code-string: #3f7a32;
+	--code-tag: #0b6f9a;
+	--code-value: #8a3f9c;
+
+	--tooltip-background: var(--color-base-100);
+	--tooltip-color: var(--color-base-00);
+
+	--shadow-s: 0 1px 2px rgba(30, 50, 60, 0.1), 0 6px 18px rgba(30, 50, 60, 0.12);
+	--shadow-l: 0 2px 6px rgba(30, 50, 60, 0.12), 0 14px 40px rgba(30, 50, 60, 0.2);
 }
 
-.is-mobile.theme-dark {
-	--interactive-normal: var(--background-secondary);
-	--background-modifier-form-field: var(--background-secondary);
+/* 3. Semantic tokens. Shared by both modes; the palettes supply the values.
+   ========================================================================== */
+
+.theme-dark,
+.theme-light {
+	--primary-accent-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+	--h1-accent-color: var(--biggs-h1-hue);
+	--h2-accent-color: var(--biggs-h2-hue);
+	--h3-accent-color: var(--biggs-h3-hue);
+	--h4-accent-color: var(--biggs-h4-hue);
+	--h5-accent-color: var(--biggs-h5-hue);
+	--h6-accent-color: var(--biggs-h6-hue);
+	--primary-line-color: var(--h1-accent-color);
+
+	--color-accent: var(--primary-accent-color);
+	--color-accent-1: color-mix(in srgb, var(--primary-accent-color) 88%, var(--text-normal));
+	--color-accent-2: color-mix(in srgb, var(--primary-accent-color) 76%, var(--text-normal));
+	--interactive-accent: var(--primary-accent-color);
+	--interactive-accent-hover: var(--color-accent-1);
+	--text-accent: var(--primary-accent-color);
+	--text-accent-hover: var(--color-accent-2);
+	--text-selection: color-mix(in srgb, var(--primary-accent-color) 30%, transparent);
+
+	--background-primary-alt: var(--color-base-10);
+	--background-modifier-border: var(--color-base-30);
+	--background-modifier-border-hover: var(--color-base-35);
+	--background-modifier-border-focus: var(--primary-accent-color);
+	--background-modifier-active-hover: var(--biggs-selected);
+
+	--text-normal: var(--color-base-100);
+	--text-muted: var(--color-base-70);
+	--text-faint: var(--color-base-50);
+
+	--code-background: var(--biggs-code-background);
+	--code-normal: var(--tertiary-accent-color);
+
+	--input-shadow: inset 0 0 0 1px var(--background-modifier-border-hover);
+	--input-shadow-hover: inset 0 0 0 1px var(--color-base-40);
+
+	--nav-item-background-selected: var(--biggs-selected);
+	--nav-item-background-active: var(--biggs-selected);
+	--nav-item-color-selected: var(--text-normal);
+	--nav-item-color-highlighted: var(--text-accent);
+
+	--tag-color: var(--tertiary-accent-color);
+	--tag-color-hover: var(--tertiary-accent-color);
+	--tag-background: color-mix(in srgb, var(--tertiary-accent-color) 7%, transparent);
+	--tag-background-hover: color-mix(in srgb, var(--tertiary-accent-color) 15%, transparent);
+	--tag-border-color: color-mix(in srgb, var(--tertiary-accent-color) 45%, transparent);
+	--tag-border-color-hover: var(--tertiary-accent-color);
+	--pill-border-color: var(--background-modifier-border-hover);
+	--pill-border-color-hover: var(--color-base-40);
+
+	--link-color-hover: var(--tertiary-accent-color);
+	--link-external-color-hover: var(--tertiary-accent-color);
+	--link-unresolved-opacity: 1;
+	--link-unresolved-color: var(--text-muted);
+
+	--list-marker-color: var(--tertiary-accent-color);
+	--list-marker-color-hover: var(--text-muted);
+	--checkbox-color: var(--tertiary-accent-color);
+	--checkbox-color-hover: var(--tertiary-accent-color);
+	--checkbox-border-color: var(--tertiary-accent-color);
+	--checkbox-border-color-hover: var(--tertiary-accent-color);
+	--checkbox-marker-color: var(--background-primary);
+	--checklist-done-color: var(--text-muted);
+
+	--callout-quote: var(--text-muted);
+
+	--blockquote-border-color: var(--primary-line-color);
+	--blockquote-color: var(--text-muted);
+
+	--table-header-color: var(--text-normal);
+	--table-border-color: var(--background-modifier-border);
+	--table-selection: var(--biggs-selected);
+
+	--hr-color: var(--background-modifier-border-hover);
+
+	--graph-line: var(--color-base-35);
+	--graph-node: var(--text-muted);
+	--graph-node-unresolved: var(--color-base-40);
+	--graph-node-focused: var(--primary-accent-color);
+	--graph-node-tag: var(--tertiary-accent-color);
+	--graph-node-attachment: var(--color-yellow);
+	--graph-text: var(--text-normal);
+
+	--canvas-dot-pattern: var(--color-base-35);
+
+	--titlebar-background: var(--background-secondary);
+	--titlebar-background-focused: var(--background-secondary);
+	--tab-container-background: var(--background-secondary);
+	--ribbon-background: var(--background-secondary);
+	--status-bar-background: var(--background-secondary);
+	--mobile-sidebar-background: var(--background-secondary);
+	--menu-background: var(--color-base-05);
+	--menu-border-color: var(--background-modifier-border-hover);
+	--modal-border-color: var(--background-modifier-border-hover);
+	--prompt-border-color: var(--background-modifier-border-hover);
+	--search-result-background: transparent;
+	--tab-divider-color: var(--background-modifier-border);
+	--tab-outline-color: var(--divider-color);
+	--tab-text-color: var(--text-muted);
+	--tab-text-color-active: var(--text-muted);
+	--tab-text-color-focused: var(--text-muted);
+	--tab-text-color-focused-active: var(--text-muted);
+	--toggle-thumb-color: var(--background-primary);
+	--slider-track-background: var(--color-base-35);
+	--slider-thumb-background: var(--text-normal);
+	--slider-thumb-background-hover: var(--text-normal);
+	--slider-thumb-border-color: transparent;
+	--slider-thumb-shadow: none;
+	--scrollbar-thumb-bg: var(--color-base-35);
+	--scrollbar-active-thumb-bg: var(--color-base-40);
+	--caret-color: var(--primary-accent-color);
+	--collapse-icon-color: var(--text-muted);
+	--collapse-icon-color-collapsed: var(--text-muted);
+	--flair-color: var(--text-muted);
+	--flair-background: var(--interactive-normal);
 }
 
-.is-mobile.theme-dark button:not(.clickable-icon),
-.is-mobile.theme-dark .workspace-drawer-active-tab-header,
-.is-mobile.theme-dark input[type="text"],
-.is-mobile.theme-dark input[type="search"],
-.is-mobile.theme-dark .search-input-container input {
-	border: 1px solid var(--background-modifier-border);
+/* Heading palettes. These set only the hues, so a color chosen in Style Settings
+   still wins for its level. Cyan to amber is the default in the palettes above. */
+
+.theme-dark.biggs-palette-cool {
+	--biggs-h1-hue: #8bcbe4;
+	--biggs-h2-hue: #83b4d8;
+	--biggs-h3-hue: #88a7d3;
+	--biggs-h4-hue: #929fd3;
+	--biggs-h5-hue: #a19cd3;
+	--biggs-h6-hue: #b19fd0;
 }
+
+.theme-light.biggs-palette-cool {
+	--biggs-h1-hue: #145e7b;
+	--biggs-h2-hue: #1f5c88;
+	--biggs-h3-hue: #2f5693;
+	--biggs-h4-hue: #42519c;
+	--biggs-h5-hue: #544a9e;
+	--biggs-h6-hue: #654599;
+}
+
+.theme-dark.biggs-palette-blue {
+	--biggs-h1-hue: #82d0ef;
+	--biggs-h2-hue: #5bc2eb;
+	--biggs-h3-hue: #3eb7e7;
+	--biggs-h4-hue: #359cc4;
+	--biggs-h5-hue: #3090b8;
+	--biggs-h6-hue: #2e89ae;
+}
+
+.theme-light.biggs-palette-blue {
+	--biggs-h1-hue: #1f5f7a;
+	--biggs-h2-hue: #20688a;
+	--biggs-h3-hue: #1f7195;
+	--biggs-h4-hue: #1c789e;
+	--biggs-h5-hue: #277c9c;
+	--biggs-h6-hue: #287c9b;
+}
+
+/* 4. Type, shape, and spacing tokens
+   ========================================================================== */
 
 body {
-	--radius-s: 0px;
-	--radius-m: 0px;
-	--radius-l: 0px;
-	--input-radius: 0px;
-	--tab-radius-active: 0px;
-	--checkbox-radius: 0px;
-	--toggle-radius: 0px;
-	--toggle-thumb-radius: 0px;
-	--slider-thumb-radius: 0px;
-	--font-text-theme: 'Noto', "Times New Roman", "Times", serif;
-	--font-monospace-theme: "Cascadia Code", "Source Code Pro", Consolas, monospace;
-	--text-highlight-bg: var(--secondary-accent-color);
-	--interactive-accent: var(--primary-accent-color);
-	--text-on-accent: #161616;
-	--text-on-accent-inverted: #161616;
-	--text-accent: var(--primary-accent-color);
-	--text-accent-hover: var(--tertiary-accent-color);
-	--background-modifier-border: var(--primary-line-color);
-	--background-modifier-hover: color-mix(in srgb, var(--primary-accent-color) 18%, transparent);
-	--background-modifier-active-hover: color-mix(in srgb, var(--primary-accent-color) 28%, transparent);
-	--text-selection: color-mix(in srgb, var(--primary-accent-color) 35%, transparent);
-	--code-background: var(--background-secondary);
-	--code-normal: var(--tertiary-accent-color);
+	--biggs-font-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, "Noto Serif", Georgia, serif;
+	--biggs-font-sans: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+	--biggs-font-heading: "Avenir Next", "Segoe UI Variable Display", "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+
+	--font-text-theme: var(--biggs-font-serif);
+	--font-monospace-theme: "Cascadia Code", "Source Code Pro", "SF Mono", Menlo, Consolas, monospace;
+
+	--biggs-text-scale: 1.0625;
+	--font-preferred-size: calc(var(--font-text-size) * var(--biggs-text-scale));
+	--line-height-normal: 1.65;
+	--file-line-width: 600px;
+	--p-spacing: 1em;
+	--heading-spacing: 2em;
+	--list-spacing: 0.2em;
+	--list-indent: 1.75em;
+
+	/* Corners. Every radius in the theme resolves to one of these. */
+	--biggs-radius-s: 0px;
+	--biggs-radius-m: 0px;
+	--biggs-radius-l: 0px;
+
+	--radius-s: var(--biggs-radius-s);
+	--radius-m: var(--biggs-radius-m);
+	--radius-l: var(--biggs-radius-l);
+	--radius-xl: var(--biggs-radius-l);
+	--input-radius: var(--biggs-radius-s);
+	--checkbox-radius: var(--biggs-radius-s);
+	--toggle-radius: var(--biggs-radius-s);
+	--toggle-thumb-radius: var(--biggs-radius-s);
+	--slider-thumb-radius: var(--biggs-radius-s);
+	--swatch-radius: var(--biggs-radius-s);
+	--tag-radius: var(--biggs-radius-s);
+	--pill-radius: var(--biggs-radius-s);
+	--code-radius: var(--biggs-radius-s);
+	--tab-radius: var(--biggs-radius-s);
+	--tab-radius-active: var(--biggs-radius-s) var(--biggs-radius-s) 0 0;
+	--tab-curve: 0px;
+	--tooltip-radius: var(--biggs-radius-s);
+	--scrollbar-radius: 0px;
+	--status-bar-radius: var(--biggs-radius-s) 0 0 0;
+	--metadata-property-radius: var(--biggs-radius-s);
+	--metadata-property-radius-hover: var(--biggs-radius-s);
+	--metadata-property-radius-focus: var(--biggs-radius-s);
+	--table-selection-border-radius: 0px;
+	--mobile-sidebar-radius: 0px;
+	--touch-radius-xxs: var(--biggs-radius-s);
+	--touch-radius-xs: var(--biggs-radius-s);
+	--touch-radius-s: var(--biggs-radius-s);
+	--touch-radius-m: var(--biggs-radius-m);
+	--touch-radius-l: var(--biggs-radius-m);
+	--touch-radius-xl: var(--biggs-radius-l);
+	--hotkey-radius: var(--biggs-radius-s);
+	--tag-corner-shape: var(--corner-shape);
+
+	/* Heading scale: each step reads as a distinct level at a glance. */
+	--h1-size: 1.75em;
+	--h2-size: 1.4em;
+	--h3-size: 1.2em;
+	--h4-size: 1.05em;
+	--h5-size: 0.875em;
+	--h6-size: 0.8125em;
+	--h1-weight: 600;
+	--h2-weight: 600;
+	--h3-weight: 600;
+	--h4-weight: 600;
+	--h5-weight: 600;
+	--h6-weight: 600;
+	--h1-line-height: 1.2;
+	--h2-line-height: 1.25;
+	--h3-line-height: 1.3;
+	--h4-line-height: 1.35;
+	--h5-line-height: 1.4;
+	--h6-line-height: 1.4;
+	--h1-letter-spacing: -0.015em;
+	--h2-letter-spacing: -0.01em;
+	--h3-letter-spacing: 0;
+	--h4-letter-spacing: 0;
+	--h5-letter-spacing: 0.07em;
+	--h6-letter-spacing: 0.07em;
+	--h1-font: var(--biggs-font-heading);
+	--h2-font: var(--biggs-font-heading);
+	--h3-font: var(--biggs-font-heading);
+	--h4-font: var(--biggs-font-heading);
+	--h5-font: var(--biggs-font-heading);
+	--h6-font: var(--biggs-font-heading);
+	--h1-color: var(--h1-accent-color);
+	--h2-color: var(--h2-accent-color);
+	--h3-color: var(--h3-accent-color);
+	--h4-color: var(--h4-accent-color);
+	--h5-color: var(--h5-accent-color);
+	--h6-color: var(--h6-accent-color);
+	--inline-title-color: var(--h1-accent-color);
+	--heading-formatting: var(--text-faint);
+
+	--inline-title-size: 2.1em;
+	--inline-title-line-height: 1.15;
+	--inline-title-margin-bottom: 0.65em;
+
+	/* Width of the rule beneath each heading level. */
+	--biggs-inline-title-rule: 3px;
+	--biggs-h1-rule: 2px;
+	--biggs-h2-rule: 1px;
+	--biggs-h3-rule: 1px;
+	--biggs-h4-rule: 0px;
+	--biggs-h5-rule: 0px;
+	--biggs-h6-rule: 0px;
+
+	/* Where a heading rule holds its full color, and where it has faded out. */
+	--biggs-rule-hold: 25%;
+	--biggs-rule-end: 100%;
+
+	--bold-weight: 700;
+	--code-size: 0.875em;
+	--code-border-width: 1px;
+	--list-bullet-radius: 0;
+	--list-bullet-size: 0.32em;
+	--blockquote-border-thickness: 3px;
+	--hr-thickness: 1px;
+	--tag-size: 0.8em;
+	--tag-padding-x: 0.45em;
+	--tag-padding-y: 0.1em;
+	--tag-border-width: 1px;
+	--pill-padding-x: 0.5em;
+	--pill-padding-y: 0.15em;
+	--table-text-size: 0.9375em;
+	--table-line-height: 1.45;
+	--table-header-font: var(--biggs-font-heading);
+	--table-header-size: 0.875em;
+	--table-header-weight: 700;
+	--table-column-first-border-width: 0px;
+	--table-column-last-border-width: 0px;
+	--embed-border-start: 3px solid var(--background-modifier-border-hover);
+	--embed-padding: 0 0 0 var(--size-4-4);
+	--embed-actions-radius: var(--biggs-radius-s);
+	--embed-action-radius: var(--biggs-radius-s);
+	--callout-border-width: 0px;
+	--callout-border-opacity: 1;
+	--callout-padding: var(--size-4-3) var(--size-4-4);
+	--callout-blend-mode: normal;
+	--callout-title-weight: 700;
+	--callout-content-padding: 0;
+	--callout-title-padding: 0;
+	--metadata-label-font: var(--font-monospace);
+	--metadata-label-font-size: 0.8125em;
+	--metadata-label-width: 8.5em;
+	--metadata-gap: 2px;
+	--menu-padding: var(--size-2-2);
+	--tooltip-font-size: var(--font-ui-smaller);
+	--tooltip-padding: var(--size-4-1) var(--size-4-2);
+	--divider-width-hover: 2px;
+	--input-border-width-focus: 1px;
+	--toggle-border-width: 2px;
+	--toggle-thumb-height: 16px;
+	--toggle-thumb-width: 16px;
+	--toggle-width: 36px;
+	--toggle-s-thumb-height: 13px;
+	--toggle-s-thumb-width: 13px;
+	--toggle-s-width: 30px;
+	--slider-thumb-height: 14px;
+	--slider-thumb-width: 10px;
+	--slider-thumb-y: -5px;
+	--slider-track-height: 4px;
 }
 
-.cm-header, .inline-title, h1, h2, h3, h4, h5, h6 {
-	font-family: 'Trebuchet MS', Arial, sans-serif !important;
-	font-weight: bold;
+/* Style Settings options */
+
+body.biggs-soft-corners {
+	--biggs-radius-s: 3px;
+	--biggs-radius-m: 4px;
+	--biggs-radius-l: 6px;
 }
 
-.inline-title {
-	font-size: 3em !important;
-	border-bottom: 3px var(--primary-line-color) solid;
+body.biggs-solid-rules {
+	--biggs-rule-hold: 100%;
+	--biggs-rule-end: 100%;
 }
 
-.collapse-icon path {
-	stroke: currentColor;
+body.biggs-text-sans {
+	--font-text-theme: var(--biggs-font-sans);
 }
 
-.HyperMD-header-1, h1 {
-	border-color: var(--h1-accent-color) !important;
+body.biggs-rules-all {
+	--biggs-h4-rule: 1px;
+	--biggs-h5-rule: 1px;
+	--biggs-h6-rule: 1px;
 }
 
-.HyperMD-header-2, h2 {
-	border-color: var(--h2-accent-color);
+body.biggs-rules-none {
+	--biggs-inline-title-rule: 0px;
+	--biggs-h1-rule: 0px;
+	--biggs-h2-rule: 0px;
+	--biggs-h3-rule: 0px;
+	--biggs-h4-rule: 0px;
+	--biggs-h5-rule: 0px;
+	--biggs-h6-rule: 0px;
 }
 
-.HyperMD-header-3, h3 {
-	border-color: var(--h3-accent-color);
+body.biggs-neutral-headings {
+	--h1-color: var(--text-normal);
+	--h2-color: var(--text-normal);
+	--h3-color: var(--text-normal);
+	--h4-color: var(--text-normal);
+	--h5-color: var(--text-normal);
+	--h6-color: var(--text-muted);
+	--inline-title-color: var(--text-normal);
 }
 
-.HyperMD-header-4, h4 {
-	border-color: var(--h4-accent-color);
+/* 5. Foundations
+   ========================================================================== */
+
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-content {
+	font-kerning: normal;
+	font-variant-ligatures: common-ligatures;
+	text-rendering: optimizeLegibility;
 }
 
-.HyperMD-header-5, h5 {
-	border-color: var(--h5-accent-color);
-}
-
-.HyperMD-header-6, h6 {
-	border-color: var(--h6-accent-color);
-}
-
-.HyperMD-header-4 .collapse-icon path, .HyperMD-header-5 .collapse-icon path, .HyperMD-header-6 .collapse-icon path {
-	stroke: currentColor;
-}
-
-
-.HyperMD-header, h1, h2, h3, h4, h5, h6 {
-	border-bottom-width: .08em;
-	border-bottom-style: solid;
-	padding-bottom: .15em;
-}
-
-.cm-strong, strong {
-	font-weight: bold;
-}
-
-.cm-highlight, mark {
-	background-color: var(--secondary-accent-color);
-	color: var(--text-highlight-fg) !important;
-}
-
-.cm-inline-code,
-code {
-	border: 1px solid var(--background-modifier-border);
-	background-color: var(--code-background);
-	color: var(--code-normal);
-	font-family: var(--font-monospace-theme);
-	padding: .1em .35em;
-}
-
-.HyperMD-codeblock,
-pre,
-pre code {
-	border-color: var(--background-modifier-border);
-	background-color: var(--code-background);
-	color: var(--text-normal);
-	font-family: var(--font-monospace-theme);
-}
-
-pre {
-	border: 1px solid var(--background-modifier-border);
-	padding: var(--size-4-3);
-}
-
-pre code {
-	border: 0;
-	padding: 0;
-}
-
-.cm-formatting-list {
-	color: var(--tertiary-accent-color);
-}
-
-a,
-.cm-hmd-internal-link,
-.cm-link,
-.internal-link,
-.external-link {
-	color: var(--text-accent);
-	text-decoration-line: underline;
-	text-decoration-thickness: 2px;
-	text-underline-offset: .18em;
-}
-
-a:hover,
-.internal-link:hover,
-.external-link:hover {
-	color: var(--text-accent-hover);
-}
-
-.tag,
-.cm-hashtag {
-	border: 1px solid var(--tertiary-accent-color);
-	background-color: transparent;
-	color: var(--tertiary-accent-color);
-	padding: .05em .35em;
-}
-
-blockquote {
-	border-left: 6px solid var(--primary-line-color);
-	background-color: var(--background-secondary);
-	padding: var(--size-4-2) var(--size-4-4);
-}
-
-.callout {
-	border: 1px solid rgb(var(--callout-color));
-	border-left-width: 8px;
-	border-radius: 0;
-	background-color: color-mix(in srgb, rgb(var(--callout-color)) 10%, var(--background-primary));
-}
-
-.callout-title {
-	font-family: 'Trebuchet MS', Arial, sans-serif;
-	font-weight: bold;
-}
-
-.metadata-container,
-.metadata-property {
-	border-color: var(--background-modifier-border);
-}
-
-.task-list-item-checkbox {
-	border-radius: .35em !important;
-}
-
-.table-wrapper, .table-editor, table, thead {
-	width: 100% !important;
-}
-
-thead .table-cell-wrapper, thead th {
-	color: var(--tertiary-accent-color) !important;
-}
-
-
-.workspace-tab-header.is-active::before, .workspace-tab-header.is-active::after {
-	display: none;
-}
-
-svg * {
+/* Square line ends on interface icons. Scoped so charts, diagrams, and plugin
+   graphics keep the drawing they were given. */
+.svg-icon * {
 	stroke-linecap: square;
 	stroke-linejoin: miter;
+}
+
+.svg-icon rect {
 	rx: 0;
 	ry: 0;
 }
 
-.menu {
-	padding: var(--size-2-1);
+:is(a, button, .clickable-icon, .tree-item-self, .vertical-tab-nav-item, .menu-item):focus-visible {
+	outline: 2px solid var(--background-modifier-border-focus);
+	outline-offset: -2px;
+	box-shadow: none;
 }
 
-.menu-item {
-	padding: var(--size-4-1) var(--size-4-2);
+button[disabled],
+input[disabled],
+select[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
 }
 
-.menu-separator {
-	margin: var(--size-2-1) calc(var(--size-2-1) * -1);
+::selection {
+	background-color: var(--text-selection);
 }
+
+/* 6. Headings
+   ========================================================================== */
+
+.inline-title:not([data-level]) {
+	--biggs-rule-color: var(--primary-line-color);
+	padding-bottom: 0.2em;
+	border-bottom: var(--biggs-inline-title-rule) solid var(--primary-line-color);
+}
+
+/* The rule starts strong under the words and fades out to the right. Each level
+   below supplies its width and color. */
+.inline-title:not([data-level]),
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+.cm-s-obsidian .cm-line:is(.HyperMD-header-1, .HyperMD-header-2, .HyperMD-header-3, .HyperMD-header-4, .HyperMD-header-5, .HyperMD-header-6) {
+	border-image: linear-gradient(to right, var(--biggs-rule-color) 0 var(--biggs-rule-hold), transparent var(--biggs-rule-end)) 1;
+}
+
+.markdown-rendered :is(h5, h6),
+.cm-s-obsidian .cm-line:is(.HyperMD-header-5, .HyperMD-header-6) {
+	text-transform: uppercase;
+}
+
+.markdown-rendered h1,
+.cm-s-obsidian .cm-line.HyperMD-header-1 {
+	--biggs-rule-color: var(--h1-accent-color);
+	padding-bottom: 0.2em;
+	border-bottom: var(--biggs-h1-rule) solid var(--h1-accent-color);
+}
+
+.markdown-rendered h2,
+.cm-s-obsidian .cm-line.HyperMD-header-2 {
+	--biggs-rule-color: var(--h2-accent-color);
+	padding-bottom: 0.2em;
+	border-bottom: var(--biggs-h2-rule) solid var(--h2-accent-color);
+}
+
+.markdown-rendered h3,
+.cm-s-obsidian .cm-line.HyperMD-header-3 {
+	--biggs-rule-color: var(--h3-accent-color);
+	padding-bottom: 0.15em;
+	border-bottom: var(--biggs-h3-rule) solid var(--h3-accent-color);
+}
+
+.markdown-rendered h4,
+.cm-s-obsidian .cm-line.HyperMD-header-4 {
+	--biggs-rule-color: var(--h4-accent-color);
+	border-bottom: var(--biggs-h4-rule) solid var(--h4-accent-color);
+}
+
+.markdown-rendered h5,
+.cm-s-obsidian .cm-line.HyperMD-header-5 {
+	--biggs-rule-color: var(--h5-accent-color);
+	border-bottom: var(--biggs-h5-rule) solid var(--h5-accent-color);
+}
+
+.markdown-rendered h6,
+.cm-s-obsidian .cm-line.HyperMD-header-6 {
+	--biggs-rule-color: var(--h6-accent-color);
+	border-bottom: var(--biggs-h6-rule) solid var(--h6-accent-color);
+}
+
+/* 7. Inline text
+   ========================================================================== */
+
+.markdown-rendered a:not(.tag),
+.cm-s-obsidian :is(.cm-hmd-internal-link, .cm-link, .cm-url) .cm-underline,
+.markdown-source-view.mod-cm6 .cm-link .cm-underline {
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.18em;
+}
+
+.markdown-rendered a.is-unresolved,
+.markdown-rendered a.internal-link.is-unresolved {
+	text-decoration-style: dashed;
+}
+
+kbd {
+	padding: 0.05em 0.4em;
+	border: 1px solid var(--background-modifier-border-hover);
+	border-bottom-width: 2px;
+	border-radius: var(--radius-s);
+	background-color: var(--background-primary-alt);
+	color: var(--text-normal);
+	font-family: var(--font-monospace);
+	font-size: 0.8em;
+}
+
+/* 8. Lists and tasks
+   ========================================================================== */
+
+input[type="checkbox"].task-list-item-checkbox {
+	border-width: 1.5px;
+}
+
+/* Live preview sets the marker hard against the text; reading view does not. */
+.markdown-source-view.mod-cm6 {
+	--list-bullet-transform: translateX(-0.3em);
+}
+
+/* 9. Quotes, callouts, and embeds
+   ========================================================================== */
+
+.callout {
+	border-inline-start-width: 3px;
+	margin-block: 1.25em;
+}
+
+.callout-title {
+	gap: var(--size-4-2);
+	font-family: var(--biggs-font-heading);
+	font-size: 0.9375em;
+}
+
+.callout-content {
+	margin-block-start: var(--size-4-2);
+}
+
+.callout-content > :first-child {
+	margin-block-start: 0;
+}
+
+.callout-content > :last-child {
+	margin-block-end: 0;
+}
+
+.callout.is-collapsed .callout-content {
+	margin-block-start: 0;
+}
+
+.markdown-rendered .internal-embed:not(.image-embed) .markdown-embed-title {
+	font-family: var(--biggs-font-heading);
+	font-size: var(--h4-size);
+}
+
+.markdown-embed-link {
+	border-radius: var(--radius-s);
+}
+
+/* 10. Tables. Horizontal rules only, the way a typeset table is ruled.
+   ========================================================================== */
+
+.markdown-rendered table,
+.markdown-source-view.mod-cm6 .cm-table-widget table {
+	border-collapse: collapse;
+}
+
+.markdown-rendered table {
+	width: 100%;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget .table-wrapper,
+.markdown-source-view.mod-cm6 .cm-table-widget .table-editor {
+	width: 100%;
+}
+
+body.biggs-natural-tables .markdown-rendered table,
+body.biggs-natural-tables .markdown-source-view.mod-cm6 .cm-table-widget .table-wrapper,
+body.biggs-natural-tables .markdown-source-view.mod-cm6 .cm-table-widget .table-editor {
+	width: auto;
+}
+
+.markdown-rendered :is(th, td),
+.markdown-source-view.mod-cm6 .cm-table-widget :is(th, td) {
+	border-inline: 0;
+}
+
+.markdown-rendered thead th,
+.markdown-source-view.mod-cm6 .cm-table-widget thead th {
+	border-block-start: 0;
+	border-block-end: 2px solid var(--primary-line-color);
+}
+
+/* 11. Code. The inline treatment is the default, so a code block only has to
+   switch it off.
+   ========================================================================== */
+
+.markdown-rendered pre,
+.cm-s-obsidian .HyperMD-codeblock {
+	--code-normal: var(--text-normal);
+	--code-border-width: 0px;
+}
+
+.markdown-rendered pre {
+	padding: var(--size-4-3) var(--size-4-4);
+	line-height: 1.55;
+}
+
+.markdown-rendered pre code {
+	border: 0;
+	padding: 0;
+}
+
+.cm-s-obsidian .cm-comment,
+.markdown-rendered pre .token.comment {
+	font-style: italic;
+}
+
+.copy-code-button {
+	border-radius: var(--radius-s);
+	font-family: var(--font-interface);
+}
+
+/* 12. Properties
+   ========================================================================== */
+
+.metadata-properties-heading,
+.metadata-properties-title {
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+}
+
+.metadata-container {
+	padding-block-end: var(--size-4-2);
+	border-block-end: 1px solid var(--background-modifier-border);
+}
+
+/* 13. Editing view
+   ========================================================================== */
+
+.markdown-source-view.mod-cm6 .cm-focused .cm-line.cm-active:not(.HyperMD-codeblock):not(.HyperMD-header) {
+	background-color: var(--biggs-active-line);
+}
+
+body.biggs-no-active-line .markdown-source-view.mod-cm6 .cm-focused .cm-line.cm-active {
+	background-color: transparent;
+}
+
+/* Text below a rule needs room to clear it, in the same way as reading view. */
+.cm-s-obsidian .cm-line:is(.HyperMD-header-1, .HyperMD-header-2, .HyperMD-header-3) + .cm-line:not(.HyperMD-header):not(:has(> br:only-child)) {
+	padding-top: 0.6em;
+}
+
+/* 14. Reading view
+   ========================================================================== */
+
+.markdown-rendered table {
+	font-variant-numeric: lining-nums tabular-nums;
+}
+
+.markdown-rendered p,
+.markdown-rendered li {
+	text-wrap: pretty;
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+	text-wrap: balance;
+	margin-block-end: 0.55em;
+}
+
+.markdown-rendered h4 {
+	margin-block-end: 0.35em;
+}
+
+.markdown-rendered :is(h5, h6) {
+	margin-block-end: 0.3em;
+}
+
+.markdown-rendered .image-embed {
+	display: block;
+	margin-block: 1.25em;
+}
+
+.markdown-rendered .footnotes {
+	color: var(--text-muted);
+	font-size: 0.875em;
+}
+
+.markdown-rendered .footnotes hr {
+	width: 25%;
+	margin-inline-start: 0;
+}
+
+/* 15. Tabs and navigation. The current location always carries the accent rule.
+   ========================================================================== */
+
+.workspace-tab-header.is-active::before,
+.workspace-tab-header.is-active::after {
+	display: none;
+}
+
+.mod-root .workspace-tabs.mod-active .workspace-tab-header.is-active {
+	box-shadow: inset 0 2px 0 var(--primary-accent-color);
+}
+
+.mod-root .workspace-tabs:not(.mod-active) .workspace-tab-header.is-active {
+	box-shadow: inset 0 2px 0 var(--color-base-40);
+}
+
+.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-title {
+	color: var(--text-normal);
+}
+
+.tree-item-self.is-active,
+.tag-pane-tag.is-active,
+.vertical-tab-nav-item.is-active {
+	box-shadow: inset 2px 0 0 var(--primary-accent-color);
+}
+
+.vertical-tab-nav-item.is-active {
+	background-color: var(--biggs-selected);
+}
+
+.workspace-sidedock-vault-profile {
+	border-block-start: 1px solid var(--background-modifier-border);
+}
+
+.status-bar {
+	font-variant-numeric: tabular-nums;
+}
+
+/* 16. Controls
+   ========================================================================== */
+
+button:not(.clickable-icon) {
+	font-weight: var(--font-medium);
+}
+
+button.mod-cta {
+	color: var(--text-on-accent);
+}
+
+.checkbox-container::after {
+	border-radius: var(--toggle-thumb-radius);
+}
+
+.checkbox-container:not(.is-enabled) {
+	background-color: var(--biggs-toggle-off);
+}
+
+/* 17. Menus, modals, and tooltips
+   ========================================================================== */
+
+.menu-item.selected:not(.is-disabled):not(.is-label) {
+	background-color: var(--background-modifier-hover);
+}
+
+.prompt-instructions {
+	border-block-start: 1px solid var(--background-modifier-border);
+}
+
+.suggestion-item.is-selected {
+	background-color: var(--biggs-selected);
+	box-shadow: inset 2px 0 0 var(--primary-accent-color);
+}
+
+.tooltip {
+	border: 1px solid var(--background-modifier-border-hover);
+}
+
+.theme-light .tooltip {
+	border-color: transparent;
+}
+
+/* 18. Search
+   ========================================================================== */
+
+.search-result-file-matches {
+	box-shadow: none;
+	border-inline-start: 2px solid var(--background-modifier-border-hover);
+	border-radius: 0;
+}
+
+.search-result-file-match {
+	border-radius: 0;
+}
+
+.search-result-file-matched-text {
+	background-color: var(--text-highlight-bg);
+	color: var(--text-normal);
+}
+
+/* 19. Mobile. Small targets lose their hover cues on touch, so controls keep a
+   visible edge of their own.
+   ========================================================================== */
+
+/* Obsidian drops the page to pure black on mobile and tints tags with the
+   accent. Biggs keeps its own ink, so sidebars and code blocks still sit below
+   the page, and tags stay amber. */
+.is-mobile.theme-dark {
+	--color-base-00: #161719;
+	--color-base-10: #1d1f21;
+	--color-base-20: #222426;
+	--tag-background: color-mix(in srgb, var(--tertiary-accent-color) 7%, transparent);
+	--search-result-background: transparent;
+}
+
+body.is-mobile {
+	--clickable-icon-radius: var(--biggs-radius-m);
+	--embed-actions-radius: var(--biggs-radius-m);
+	--embed-action-radius: var(--biggs-radius-m);
+	--search-input-radius: var(--biggs-radius-m);
+	--swatch-radius: var(--biggs-radius-s);
+	--view-header-action-radius: var(--biggs-radius-m);
+}
+
+body.is-mobile.is-floating-nav {
+	--navbar-radius: var(--biggs-radius-m);
+}
+
+.is-mobile :is(button:not(.clickable-icon), .workspace-drawer-active-tab-header, .search-input-container input, .setting-item-control input[type="text"]) {
+	box-shadow: inset 0 0 0 1px var(--background-modifier-border-hover);
+}
+
+.is-mobile .mod-raised,
+.is-phone .prompt-input-container,
+.is-phone .prompt-input[type="text"],
+.is-phone .search-input-container.mod-raised,
+.is-floating-nav .mobile-toolbar-options-container,
+.mobile-toolbar-options-list-container,
+.mobile-toolbar-options-list,
+.mobile-toolbar-floating-options {
+	border-radius: var(--biggs-radius-m);
+}
+
+.is-mobile button.mod-cta {
+	box-shadow: none;
+}
+
+.is-mobile .mobile-navbar {
+	background-color: var(--background-secondary);
+	box-shadow: 0 0 0 1px var(--background-modifier-border-hover), var(--shadow-s);
+}
+
+.is-mobile .mobile-navbar-action :is(.clickable-icon, button) {
+	border-radius: var(--biggs-radius-m);
+	box-shadow: none;
+}
+
+/* 20. Small screens
+   ========================================================================== */
 
 @media (max-width: 600px) {
 	body {
-		--h1-size: 1.85em;
-		--h2-size: 1.7em;
-		--h3-size: 1.65em;
-		--h4-size: 1.45em;
-		--h5-size: 1.25em;
-		--h6-size: 1.1em;
+		--h1-size: 1.625em;
+		--h2-size: 1.375em;
+		--h3-size: 1.1875em;
+		--h4-size: 1.05em;
+		--inline-title-size: 1.875em;
+		--heading-spacing: 1.75em;
+		--table-text-size: 0.875em;
+		--file-margins-x: var(--size-4-5);
+		--metadata-label-width: 7em;
 	}
 
-	.inline-title {
-		font-size: 2.2em !important;
+	.markdown-rendered pre {
+		padding: var(--size-4-2) var(--size-4-3);
 	}
 
-	.HyperMD-header,
-	.markdown-rendered h1, .markdown-rendered h2, .markdown-rendered h3,
-	.markdown-rendered h4, .markdown-rendered h5, .markdown-rendered h6 {
-		margin-block-end: 1.5rem;
-	}
-
-	.cm-s-obsidian .cm-line.HyperMD-header + .cm-line:not(.HyperMD-header):not(:has(>br:only-child)) {
-		padding-top: 1.5rem;
+	.callout {
+		--callout-padding: var(--size-4-2) var(--size-4-3);
 	}
 }
